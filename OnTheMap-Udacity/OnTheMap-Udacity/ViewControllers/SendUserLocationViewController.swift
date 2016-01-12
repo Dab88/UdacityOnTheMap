@@ -38,43 +38,14 @@ class SendUserLocationViewController: ConnectionViewController {
             return
         }
         
-        connectionAPI.post(APISettings.BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: self.userLocation!.toJSON(), serverTag: "tagAddStudentLoc", parseRequest: true)
+        
+        userLocation?.mediaURL = mediaUrl.text
+        
+        connectionAPI.post(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: self.userLocation!.toJSON(), serverTag: "tagAddStudentLoc", parseRequest: true)
         
     }
     //MARK: Other Methods
-    /**
-     * @author: Daniela Velasquez
-     * Make body request from request.
-     * @return:
-     {
-     "uniqueKey": "1234",
-     "firstName": "John",
-     "lastName": "Doe",
-     "mapString": "Mountain View, CA",
-     "mediaURL": "https://udacity.com",
-     "latitude": 37.386052,
-     "longitude": -122.083851
-     }
-     */
-    func setBodyParameters()-> [String : AnyObject]{
-        
-        let params:NSMutableDictionary = NSMutableDictionary()
-        
-        params["uniqueKey"] = userLocation!.uniqueKey
-        params["firstName"] = userLocation!.firstName
-        params["lastName"]  = userLocation!.lastName
-        params["mapString"] = userLocation!.mapString
-        params["mediaURL"]  = userLocation!.mediaURL
-        params["latitude"]  = userLocation!.latitude
-        params["longitude"] = userLocation!.longitude
-        
-        let parameters:NSDictionary = params
-        
-        return parameters as! [String : AnyObject]
-    }
-    
-    
-    
+
     override func didReceiveAPIResultsSuccess(results results: AnyObject, path: String, serverTag: String){
         dismissViewControllerAnimated(true, completion: nil)
     }

@@ -19,8 +19,8 @@ class UserBasicInfo: NSObject, Deserializable {
     }
     
     required init(data: [String: AnyObject]) {
-        firstName <-- data["last_name"]
-        lastName <-- data["first_name"]
+        firstName <-- data["first_name"]
+        lastName <-- data["last_name"]
     }
     
 }
