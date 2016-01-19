@@ -21,9 +21,9 @@ class LoginViewController: ConnectionViewController {
     
     //MARK: Life Cycle Methods
     override func viewDidLoad() {
-    
+        
         super.viewDidLoad()
-
+        
         oauth2Control = MSOAuth2.instance
         oauth2Control.delegate = self
         oauth2Control.logout()
@@ -45,7 +45,6 @@ class LoginViewController: ConnectionViewController {
         
         showRequestMode(show: false)
         
-     
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -54,6 +53,8 @@ class LoginViewController: ConnectionViewController {
         
         //Set oauth2 buttons
         setFacebookBtn(1)
+        
+        showRequestMode(show: false)
     }
     
     /**
@@ -95,9 +96,9 @@ class LoginViewController: ConnectionViewController {
      * Make body request from request.
      * @return: JSON with the next struct
      {
-        "facebook_mobile": {
-        "access_token": "CAAFMS4SN9e8BAJZAavcM8syA8iNkQVjpgf6CkU9pYNXZBG5UNRYkk1w5Lf5GoNvMG4UQ0nUadnEPcdhQxZCuwvWOPaYZAaFCoO8UZB0mnznVO37Tu8cUnQgQqi9OlqTzMwcQZBjHNnRIIpkgZCxGkdv9oBehOUrkOCuoX2zle2lV7vi0ippaJwxnr2Linan1UlBQRSAdgshwQkyLfN6ps6nyke79o5sSoZBnH9Vr7ZBXSegZDZD;"
-        }
+     "facebook_mobile": {
+     "access_token": "CAAFMS4SN9e8BAJZAavcM8syA8iNkQVjpgf6CkU9pYNXZBG5UNRYkk1w5Lf5GoNvMG4UQ0nUadnEPcdhQxZCuwvWOPaYZAaFCoO8UZB0mnznVO37Tu8cUnQgQqi9OlqTzMwcQZBjHNnRIIpkgZCxGkdv9oBehOUrkOCuoX2zle2lV7vi0ippaJwxnr2Linan1UlBQRSAdgshwQkyLfN6ps6nyke79o5sSoZBnH9Vr7ZBXSegZDZD;"
+     }
      }
      */
     func setFacebookBodyParameters()-> [String : AnyObject]{
@@ -130,7 +131,7 @@ class LoginViewController: ConnectionViewController {
             return
         }
         
-         showRequestMode(show: true)
+        showRequestMode(show: true)
         connectionAPI.post(APISettings.BASE_URL + APISettings.URI_LOGIN, parametersArray: setBodyParameters(), serverTag: "tagLogin")
     }
     
@@ -164,17 +165,12 @@ class LoginViewController: ConnectionViewController {
     
     //MARK: APIConnectionProtocol Methods
     override func didReceiveAPIResultsSuccess(results results: AnyObject, path: String, serverTag: String) {
+        
         showRequestMode(show: false)
         
-        if ( serverTag == "tagUserInfo"){
-            let responseObject = UserResponse(data: results as! [String: AnyObject])
-            UserSession.instance.user = responseObject.user
-            performSegueWithIdentifier("goToMap", sender: self)
-            
-        }else{
-             UserSession.instance.info = LoginResponse(data: results as! [String: AnyObject])
-             //Get public user data
-             connectionAPI.get(APISettings.BASE_URL + APISettings.URI_USER + "\(UserSession.instance.info!.account!.key!)", parametersArray: nil, serverTag: "tagUserInfo")
+        dispatch_async(dispatch_get_main_queue()) {
+            UserSession.instance.info = LoginResponse(data: results as! [String: AnyObject])
+            self.performSegueWithIdentifier("goToMap", sender: self)
         }
     }
 }

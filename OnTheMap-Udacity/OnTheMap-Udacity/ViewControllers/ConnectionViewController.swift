@@ -33,17 +33,18 @@ class ConnectionViewController: BaseViewController {
      */
     func showRequestMode(show show: Bool){
         
-        
-        if (self.activityIndicator != nil){
-            if(show){
-                self.activityIndicator.startAnimating()
-            }else{
-                self.activityIndicator.stopAnimating()
+        dispatch_async(dispatch_get_main_queue()) {
+            if (self.activityIndicator != nil){
+                if(show){
+                    self.activityIndicator.startAnimating()
+                }else{
+                    self.activityIndicator.stopAnimating()
+                }
             }
-        }
-        
-        if((self.overlay) != nil){
-            self.overlay.hidden = !show
+            
+            if((self.overlay) != nil){
+                self.overlay.hidden = !show
+            }
         }
     }
 }

@@ -20,22 +20,22 @@ class OnTheMapViewController: ConnectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    
-    override func viewWillAppear(animated: Bool) {
-     
         
+        //Init locationManager
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
         
-        showRequestMode(show: true)
         
-        //Get students location
-        connectionAPI.get(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: nil, serverTag: "tagStudentsLoc", parseRequest: true)
+        //Get public user data
+        connectionAPI.get(APISettings.BASE_URL + APISettings.URI_USER + "\(UserSession.instance.info!.account!.key!)", parametersArray: nil, serverTag: "tagUserInfo")
+    }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        
     }
     
     func centerMapOnLocation(location: CLLocation) {
@@ -100,12 +100,16 @@ class OnTheMapViewController: ConnectionViewController {
     
     //MARK: IBAction Methods
     @IBAction func logoutRequestAction(sender: AnyObject) {
+        
         connectionAPI.delete(APISettings.BASE_URL + APISettings.URI_LOGIN, serverTag: "tagLogout")
         
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        MSOAuth2.instance.logout()
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func refreshAction(sender: AnyObject) {
+        showRequestMode(show: true)
         connectionAPI.get(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: nil, serverTag: "tagStudentsLoc", parseRequest: true)
     }
     
@@ -114,15 +118,26 @@ class OnTheMapViewController: ConnectionViewController {
     override func  didReceiveAPIResultsSuccess(results results: AnyObject, path: String, serverTag: String){
         
         if(serverTag == "tagStudentsLoc"){
-            //Parse response
-            let response = StudentLocationResponse(data: results as! [String: AnyObject])
-            //Refresh studentLocations
-            UserSession.instance.studentLocations = response.results
-            //Load students points
-            loadLocations()
             
-            //Refresh tableview
-            mapView.reloadInputViews()
+            dispatch_async(dispatch_get_main_queue()) {
+                self.showRequestMode(show: false)
+                //Parse response
+                let response = StudentLocationResponse(data: results as! [String: AnyObject])
+                //Refresh studentLocations
+                UserSession.instance.studentLocations = response.results
+                //Load students points
+                self.loadLocations()
+                //Refresh tableview
+                self.mapView.reloadInputViews()
+            }
+          
+        }else if(serverTag == "tagUserInfo"){
+            let responseObject = UserResponse(data: results as! [String: AnyObject])
+            
+            UserSession.instance.user = responseObject.user
+            
+            refreshAction(self)
+            
         }
     }
     
