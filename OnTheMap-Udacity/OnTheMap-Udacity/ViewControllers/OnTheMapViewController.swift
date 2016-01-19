@@ -11,26 +11,31 @@ import MapKit
 
 
 class OnTheMapViewController: ConnectionViewController {
-
     
     @IBOutlet weak var mapView: MKMapView!
     
     var studentLocations:[StudentLocationObject]?
+    var locationManager:CLLocationManager!
     let regionRadius: CLLocationDistance = 1000
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        
     }
     
     
     override func viewWillAppear(animated: Bool) {
      
+        
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+        
         showRequestMode(show: true)
+        
         //Get students location
         connectionAPI.get(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: nil, serverTag: "tagStudentsLoc", parseRequest: true)
-        
     }
     
     func centerMapOnLocation(location: CLLocation) {
@@ -43,10 +48,7 @@ class OnTheMapViewController: ConnectionViewController {
     func updateStudentLocation(){
         connectionAPI.put(APISettings.BASE_URL + APISettings.URI_STUDENTLOC + "objectID", parametersArray: setBodyParameters(), serverTag: "tagUpdateStudentLoc", parseRequest: true)
     }
-    
-    func addStudentLocation(){
-        connectionAPI.post(APISettings.BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: setBodyParameters(), serverTag: "tagAddStudentLoc", parseRequest: true)
-    }
+
     
     
     /**
@@ -84,7 +86,6 @@ class OnTheMapViewController: ConnectionViewController {
     
     func loadLocations(){
     
-    
         for sLocation in UserSession.instance.studentLocations!{
         
             //show students on map
@@ -108,10 +109,7 @@ class OnTheMapViewController: ConnectionViewController {
         connectionAPI.get(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: nil, serverTag: "tagStudentsLoc", parseRequest: true)
     }
     
-    @IBAction func adduserLocationsAction(sender: AnyObject) {
-       addStudentLocation()
-    }
-    
+
     
     override func  didReceiveAPIResultsSuccess(results results: AnyObject, path: String, serverTag: String){
         
@@ -122,11 +120,6 @@ class OnTheMapViewController: ConnectionViewController {
             UserSession.instance.studentLocations = response.results
             //Load students points
             loadLocations()
-            
-            //TODO: Center in the user location
-            // set initial location - TODO
-            let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
-            centerMapOnLocation(initialLocation)
             
             //Refresh tableview
             mapView.reloadInputViews()
@@ -178,4 +171,11 @@ extension OnTheMapViewController: MKMapViewDelegate {
     }
 }
 
+extension OnTheMapViewController: CLLocationManagerDelegate{
 
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] 
+        centerMapOnLocation(userLocation)
+    }
+
+}
