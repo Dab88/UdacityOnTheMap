@@ -19,13 +19,14 @@ class FindLocationViewController: ConnectionViewController {
     
     override func viewWillAppear(animated: Bool) {
         userAddress.text = "Enter Your Location here"
+        
     }
     
     
     //MARK: IBAction Methods
     @IBAction func adduserLocationsAction(sender: AnyObject) {
         
-        guard !userAddress.text.isEmpty else{
+        guard ((!userAddress.text.isEmpty) && (userAddress.text != "Enter Your Location here")) else{
             showAlert("", message: "Must Enter a Location")
             return
         }
@@ -33,15 +34,26 @@ class FindLocationViewController: ConnectionViewController {
         findLocation()
     }
     
+    @IBAction func cancelAction(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
+    }
     
     //MARK: Other Methods
     func findLocation(){
         let geocoder:CLGeocoder = CLGeocoder()
         geocoder.geocodeAddressString(userAddress.text, completionHandler:  { (placemarks, error) -> Void in
+            
+            guard error == nil else{
+                self.showAlert("Sorry!", message: "Could not geocode the string")
+                return
+            }
+           
             if let firstPlacemark = placemarks?[0] {
                 self.userLocation = (firstPlacemark as CLPlacemark).location?.coordinate
                 self.performSegueWithIdentifier("goToSendLocation", sender: self)
             }
+           
         })
     }
     

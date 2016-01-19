@@ -22,12 +22,15 @@ class OnTheMapViewController: ConnectionViewController {
         
         super.viewDidLoad()
         
-        // set initial location - TODO
-        let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
-
-        centerMapOnLocation(initialLocation)
+    }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+     
+        showRequestMode(show: true)
+        //Get students location
+        connectionAPI.get(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: nil, serverTag: "tagStudentsLoc", parseRequest: true)
         
-        loadLocations()
     }
     
     func centerMapOnLocation(location: CLLocation) {
@@ -35,9 +38,6 @@ class OnTheMapViewController: ConnectionViewController {
             regionRadius * 2.0, regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
     }
-    
-    
-    
     
     
     func updateStudentLocation(){
@@ -120,6 +120,14 @@ class OnTheMapViewController: ConnectionViewController {
             let response = StudentLocationResponse(data: results as! [String: AnyObject])
             //Refresh studentLocations
             UserSession.instance.studentLocations = response.results
+            //Load students points
+            loadLocations()
+            
+            //TODO: Center in the user location
+            // set initial location - TODO
+            let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
+            centerMapOnLocation(initialLocation)
+            
             //Refresh tableview
             mapView.reloadInputViews()
         }

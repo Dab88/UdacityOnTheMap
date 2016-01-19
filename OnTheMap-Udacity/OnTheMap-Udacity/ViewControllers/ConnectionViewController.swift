@@ -10,8 +10,12 @@ import UIKit
 
 
 class ConnectionViewController: BaseViewController {
-
+    
     var connectionAPI:APIConnection = APIConnection()
+    
+    //Loading UI
+    @IBOutlet weak var overlay: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     //MARK: Life Cycle Methods
     override func viewDidLoad() {
@@ -23,11 +27,25 @@ class ConnectionViewController: BaseViewController {
         self.preferredStatusBarStyle()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    /**
+     * @author: Daniela Velasquez
+     * Show/Hide request mode in viewController
+     */
+    func showRequestMode(show show: Bool){
+        
+        
+        if (self.activityIndicator != nil){
+            if(show){
+                self.activityIndicator.startAnimating()
+            }else{
+                self.activityIndicator.stopAnimating()
+            }
+        }
+        
+        if((self.overlay) != nil){
+            self.overlay.hidden = !show
+        }
     }
-    
 }
 
 
@@ -40,5 +58,6 @@ extension ConnectionViewController : APIConnectionProtocol{
     
     func didReceiveAPIResultsFailed(error error: NSError, errorObject: AnyObject, path: String, serverTag: String){
         print(errorObject)
+        showRequestMode(show: false)
     }
 }

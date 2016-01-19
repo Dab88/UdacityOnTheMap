@@ -15,7 +15,6 @@ class LoginViewController: ConnectionViewController {
     @IBOutlet weak var usernameTxtField: MSTextField!
     @IBOutlet weak var passwordTxtField: MSTextField!
     
-    
     var oauth2Control = MSOAuth2()
     var fbButton:UIButton?
     var studentLocations:[StudentLocationObject]?
@@ -43,11 +42,14 @@ class LoginViewController: ConnectionViewController {
         usernameTxtField.attributedPlaceholder = NSAttributedString(string: usernameTxtField.placeholder!, attributes:attributes)
         
         passwordTxtField.attributedPlaceholder = NSAttributedString(string: passwordTxtField.placeholder!, attributes:attributes)
+        
+        showRequestMode(show: false)
+        
+     
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
         fbButton?.removeFromSuperview()
         
         //Set oauth2 buttons
@@ -61,6 +63,9 @@ class LoginViewController: ConnectionViewController {
     func setFacebookBtn(position: CGFloat = 1){
         fbButton = oauth2Control.addButton(.Facebook, position: position) as! FBSDKLoginButton
         self.view.addSubview(fbButton!)
+        fbButton?.sendSubviewToBack(view)
+        overlay.bringSubviewToFront(fbButton!)
+        activityIndicator.bringSubviewToFront(overlay)
     }
     
     /**
@@ -125,6 +130,7 @@ class LoginViewController: ConnectionViewController {
             return
         }
         
+         showRequestMode(show: true)
         connectionAPI.post(APISettings.BASE_URL + APISettings.URI_LOGIN, parametersArray: setBodyParameters(), serverTag: "tagLogin")
     }
     
@@ -141,6 +147,7 @@ class LoginViewController: ConnectionViewController {
             return
         }
         
+        showRequestMode(show: true)
         connectionAPI.post(APISettings.BASE_URL + APISettings.URI_LOGIN, parametersArray: setFacebookBodyParameters(), serverTag: "tagLoginFb")
     }
     
@@ -157,16 +164,13 @@ class LoginViewController: ConnectionViewController {
     
     //MARK: APIConnectionProtocol Methods
     override func didReceiveAPIResultsSuccess(results results: AnyObject, path: String, serverTag: String) {
+        showRequestMode(show: false)
         
-        if(serverTag == "tagStudentsLoc"){
-            let response = StudentLocationResponse(data: results as! [String: AnyObject])
-            studentLocations = response.results
-            performSegueWithIdentifier("goToMap", sender: self)
-        }else if ( serverTag == "tagUserInfo"){
+        if ( serverTag == "tagUserInfo"){
             let responseObject = UserResponse(data: results as! [String: AnyObject])
             UserSession.instance.user = responseObject.user
-            //Get students location
-            connectionAPI.get(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: nil, serverTag: "tagStudentsLoc", parseRequest: true)
+            performSegueWithIdentifier("goToMap", sender: self)
+            
         }else{
              UserSession.instance.info = LoginResponse(data: results as! [String: AnyObject])
              //Get public user data
