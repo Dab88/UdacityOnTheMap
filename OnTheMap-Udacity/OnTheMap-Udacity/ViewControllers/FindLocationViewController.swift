@@ -18,16 +18,15 @@ class FindLocationViewController: ConnectionViewController {
     //MARK: Life Cycle Methods
     
     override func viewWillAppear(animated: Bool) {
-        userAddress.text = "Enter Your Location here"
-        
+        userAddress.text = Messages.mEnterLocation
     }
     
     
     //MARK: IBAction Methods
     @IBAction func adduserLocationsAction(sender: AnyObject) {
         
-        guard ((!userAddress.text.isEmpty) && (userAddress.text != "Enter Your Location here")) else{
-            showAlert("", message: "Must Enter a Location")
+        guard ((!userAddress.text.isEmpty) && (userAddress.text != Messages.mEnterLocation)) else{
+            showAlert(message: Messages.mMustEnterLocation)
             return
         }
         
@@ -45,7 +44,7 @@ class FindLocationViewController: ConnectionViewController {
         geocoder.geocodeAddressString(userAddress.text, completionHandler:  { (placemarks, error) -> Void in
             
             guard error == nil else{
-                self.showAlert("Sorry!", message: "Could not geocode the string")
+                self.showAlert(Messages.titleAlert, message: Messages.mGeocodeFail)
                 return
             }
            
@@ -83,7 +82,7 @@ extension FindLocationViewController: UITextViewDelegate{
     func textViewShouldEndEditing(textView: UITextView) -> Bool {
         
         if(userAddress.text == ""){
-            textView.text = "Enter Your Location here"
+            textView.text = Messages.mEnterLocation
         }
         userAddress.resignFirstResponder()
         return true
@@ -91,7 +90,7 @@ extension FindLocationViewController: UITextViewDelegate{
     
     func textViewDidBeginEditing(textView: UITextView) {
         
-        if(userAddress.text == "Enter Your Location here"){
+        if(userAddress.text == Messages.mEnterLocation){
             textView.text = ""
         }
         

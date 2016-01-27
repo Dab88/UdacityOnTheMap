@@ -1,0 +1,66 @@
+
+/* Class = "UITabBarItem"; title = "Map"; ObjectID = "0oA-6V-OQG"; */
+"0oA-6V-OQG.title" = "Map";
+
+/* Class = "UITableViewController"; title = "List"; ObjectID = "2Oa-98-L32"; */
+"2Oa-98-L32.title" = "List";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "3Tz-Aa-oeo"; */
+"3Tz-Aa-oeo.placeholder" = "Email";
+
+/* Class = "UITextView"; text = "Enter Your Location Here"; ObjectID = "3fi-Qd-K26"; */
+"3fi-Qd-K26.text" = "Enter Your Location Here";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "HNw-Y5-B58"; */
+"HNw-Y5-B58.title" = "Cancel";
+
+/* Class = "UITabBarItem"; title = "List"; ObjectID = "J74-Kb-5z3"; */
+"J74-Kb-5z3.title" = "List";
+
+/* Class = "UIButton"; normalTitle = "Find on the Map"; ObjectID = "OEv-d5-oEN"; */
+"OEv-d5-oEN.normalTitle" = "Find on the Map";
+
+/* Class = "UIButton"; normalTitle = "Don't have an account? Sign Up"; ObjectID = "RBZ-1P-puo"; */
+"RBZ-1P-puo.normalTitle" = "Don't have an account? Sign Up";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "RXJ-UC-mtv"; */
+"RXJ-UC-mtv.title" = "Cancel";
+
+/* Class = "UINavigationItem"; title = "On the Map"; ObjectID = "Ubo-dD-JD3"; */
+"Ubo-dD-JD3.title" = "On the Map";
+
+/* Class = "UILabel"; text = "Login to Udacity"; ObjectID = "WF9-eb-WGe"; */
+"WF9-eb-WGe.text" = "Login to Udacity";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "XlJ-Ua-ONJ"; */
+"XlJ-Ua-ONJ.text" = "Label";
+
+/* Class = "UIViewController"; title = "On The Map"; ObjectID = "Z1E-3l-Kd5"; */
+"Z1E-3l-Kd5.title" = "On The Map";
+
+/* Class = "UINavigationController"; title = "On the Map - Nav"; ObjectID = "est-FP-rKj"; */
+"est-FP-rKj.title" = "On the Map - Nav";
+
+/* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "iEw-nf-f4u"; */
+"iEw-nf-f4u.normalTitle" = "Submit";
+
+/* Class = "UIBarButtonItem"; title = "Logout"; ObjectID = "lAg-gX-stk"; */
+"lAg-gX-stk.title" = "Logout";
+
+/* Class = "UINavigationItem"; title = "On The Map"; ObjectID = "mgC-5T-hI9"; */
+"mgC-5T-hI9.title" = "On The Map";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "p6F-pU-kWZ"; */
+"p6F-pU-kWZ.placeholder" = "Password";
+
+/* Class = "UIButton"; normalTitle = "Login"; ObjectID = "pRK-hC-ywG"; */
+"pRK-hC-ywG.normalTitle" = "Login";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "pgS-b7-o7M"; */
+"pgS-b7-o7M.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "Logout"; ObjectID = "uT3-Oc-Rp3"; */
+"uT3-Oc-Rp3.title" = "Logout";
+
+/* Class = "UITextView"; text = "Enter a Link to Share Here"; ObjectID = "wqG-qn-cO4"; */
+"wqG-qn-cO4.text" = "Enter a Link to Share Here";

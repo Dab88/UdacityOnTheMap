@@ -41,4 +41,15 @@ class UserSession: NSObject {
         user = UserBasicInfo()
     }
     
+    func userWithLocation() -> Bool{
+        
+        let user = self.studentLocations?.filter{ $0.uniqueKey == self.info!.account!.key!}
+        
+        guard user?.count != 0 else{
+            return false
+        }
+        
+        return (user![0].latitude != nil)
+    }
+    
 }

@@ -11,9 +11,9 @@
     <customFonts key="customFonts">
         <mutableArray key="Roboto-Medium.ttf">
             <string>Roboto-Medium</string>
+            <string>Roboto-Medium</string>
         </mutableArray>
         <mutableArray key="Roboto-Regular.ttf">
-            <string>Roboto-Regular</string>
             <string>Roboto-Regular</string>
             <string>Roboto-Regular</string>
             <string>Roboto-Regular</string>
@@ -111,6 +111,8 @@
                                 <exclude reference="nbe-3L-548"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="8aP-R4-C2L"/>
+                                <exclude reference="HLp-wK-BZP"/>
                                 <exclude reference="8Kl-ky-VIq"/>
                                 <exclude reference="FK2-U3-GQj"/>
                                 <exclude reference="IMA-1d-C1j"/>
@@ -119,8 +121,6 @@
                                 <exclude reference="nAi-Ol-XYh"/>
                                 <exclude reference="nuX-Kw-typ"/>
                                 <exclude reference="pav-w1-UDx"/>
-                                <exclude reference="8aP-R4-C2L"/>
-                                <exclude reference="HLp-wK-BZP"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -130,6 +130,8 @@
                                 <include reference="nbe-3L-548"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="8aP-R4-C2L"/>
+                                <include reference="HLp-wK-BZP"/>
                                 <include reference="8Kl-ky-VIq"/>
                                 <include reference="FK2-U3-GQj"/>
                                 <include reference="IMA-1d-C1j"/>
@@ -138,8 +140,6 @@
                                 <include reference="nAi-Ol-XYh"/>
                                 <include reference="nuX-Kw-typ"/>
                                 <include reference="pav-w1-UDx"/>
-                                <include reference="8aP-R4-C2L"/>
-                                <include reference="HLp-wK-BZP"/>
                             </mask>
                         </variation>
                     </view>
@@ -157,7 +157,7 @@
                             </barButtonItem>
                             <barButtonItem image="pin" id="O4T-fC-rYV">
                                 <connections>
-                                    <segue destination="2F8-D9-a0S" kind="showDetail" id="kDU-em-fwJ"/>
+                                    <action selector="verifyLocation:" destination="Z1E-3l-Kd5" id="6BB-Y8-QaO"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -166,6 +166,7 @@
                         <outlet property="activityIndicator" destination="nbe-3L-548" id="fuQ-0m-StL"/>
                         <outlet property="mapView" destination="m0n-EE-YYh" id="fS6-aO-8kP"/>
                         <outlet property="overlay" destination="4Ft-T6-gBQ" id="Xb6-xa-bSN"/>
+                        <segue destination="2F8-D9-a0S" kind="showDetail" identifier="setLocation" id="qNu-z2-917"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aBU-9L-1qh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -215,7 +216,7 @@
                                                 <constraint firstAttribute="height" constant="25" id="mLY-ic-6EA"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                             <variation key="default">
                                                 <mask key="constraints">
@@ -318,11 +319,14 @@
                             </barButtonItem>
                             <barButtonItem image="pin" id="3PE-mn-wpu">
                                 <connections>
-                                    <segue destination="2F8-D9-a0S" kind="show" action="showDetailViewController:sender:" id="DvS-pU-gsf"/>
+                                    <action selector="verifyLocation:" destination="2Oa-98-L32" id="BXZ-3V-5KK"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <segue destination="2F8-D9-a0S" kind="push" identifier="setLocation" id="kjC-Sp-xjK"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fyu-be-Hw8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -544,6 +548,7 @@ Cg
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="bJE-NK-hUS"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -618,7 +623,7 @@ Cg
                                     <constraint firstAttribute="height" constant="30" id="1XF-UO-dQf"/>
                                     <constraint firstAttribute="width" constant="300" id="YTT-sX-A45"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="15"/>
                                 <state key="normal" title="Don't have an account? Sign Up">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -1105,6 +1110,6 @@ Cg
         <image name="udacity" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kDU-em-fwJ"/>
+        <segue reference="qNu-z2-917"/>
     </inferredMetricsTieBreakers>
 </document>

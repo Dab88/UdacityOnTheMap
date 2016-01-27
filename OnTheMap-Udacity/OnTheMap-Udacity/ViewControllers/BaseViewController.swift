@@ -31,7 +31,7 @@ class BaseViewController: UIViewController {
      * Show the message in like do AlertMessage
      */
     
-    func showAlert(title:String, message:String, successBtnTitle: String = "Dismiss", handlerSuccess: ((UIAlertAction) -> Void)? = nil, failBtnTitle: String = "", handlerFail: ((UIAlertAction) -> Void)? = nil) {
+    func showAlert(title:String = "", message:String = "", successBtnTitle: String = Messages.bDismiss, handlerSuccess: ((UIAlertAction) -> Void)? = nil, failBtnTitle: String = "", handlerFail: ((UIAlertAction) -> Void)? = nil) {
         
         let alert = UIAlertController(title: title,
             message: message, preferredStyle: .Alert)

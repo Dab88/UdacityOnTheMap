@@ -22,11 +22,22 @@ struct APISettings{
  
     
     static let SIGN_UP_URL = "https://www.google.com/url?q=https://www.udacity.com/account/auth%23!/signin&sa=D&usg=AFQjCNHOjlXo3QS15TqT0Bp_TKoR9Dvypw"
+    
+    static let tagFB = "tagLoginFb"
+    static let tagAuth = "tagLogin"
+    static let tagGetUser = "tagUserInfo"
+    static let tagGetLoc = "tagStudentsLoc"
+    static let tagLogout = "tagLogout"
+    static let tagAddLoc = "tagAddStudentLoc"
 }
 
+struct Interface {
+     static let fontFamily = "Roboto"
+}
 public struct ScreenSize{
     static let width         = UIScreen.mainScreen().bounds.size.width
     static let height        = UIScreen.mainScreen().bounds.size.height
     static let max_length    = max(ScreenSize.width, ScreenSize.height)
     static let min_length    = min(ScreenSize.width, ScreenSize.height)
 }
+

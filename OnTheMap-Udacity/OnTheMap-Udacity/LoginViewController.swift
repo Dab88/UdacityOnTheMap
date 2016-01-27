@@ -19,6 +19,7 @@ class LoginViewController: ConnectionViewController {
     var fbButton:UIButton?
     var studentLocations:[StudentLocationObject]?
     
+    
     //MARK: Life Cycle Methods
     override func viewDidLoad() {
         
@@ -31,17 +32,7 @@ class LoginViewController: ConnectionViewController {
         //Add gesture from hide keyboard when the user touch the screen
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideKeyboard"))
         
-        // usernameTxtField.text = "dvelasquez@mahisoft.com"
-        //passwordTxtField.text = "Mahisoft1234"
-        
-        let attributes = [
-            NSForegroundColorAttributeName: UIColor.whiteColor(),
-            NSFontAttributeName : UIFont(name: "Roboto", size: 14)!
-        ]
-        
-        usernameTxtField.attributedPlaceholder = NSAttributedString(string: usernameTxtField.placeholder!, attributes:attributes)
-        
-        passwordTxtField.attributedPlaceholder = NSAttributedString(string: passwordTxtField.placeholder!, attributes:attributes)
+        setInterfaceDetails()
         
         showRequestMode(show: false)
         
@@ -49,7 +40,6 @@ class LoginViewController: ConnectionViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        fbButton?.removeFromSuperview()
         
         //Set oauth2 buttons
         setFacebookBtn(1)
@@ -57,17 +47,87 @@ class LoginViewController: ConnectionViewController {
         showRequestMode(show: false)
     }
     
+    //MARK: IBAction Methods
+    @IBAction func loginRequestAction(sender: AnyObject) {
+        
+        guard !emptyFields() else{
+            showAlert(Messages.titleAlert, message: Messages.mFieldsEmpty)
+            return
+        }
+        
+        showRequestMode(show: true)
+        connectionAPI.post(APISettings.BASE_URL + APISettings.URI_LOGIN, parametersArray: setBodyParameters(), serverTag: APISettings.tagAuth)
+    }
+    
+    @IBAction func goToUdacitySignUp(sender: AnyObject) {
+        UIApplication.sharedApplication().openURL(NSURL(string: APISettings.SIGN_UP_URL)!)
+    }
+    
+    
+    //MARK: Facebook
+    func loginWithFacebook(){
+        
+        guard MSOAuth2.instance.consumerKey != nil else{
+            showAlert(Messages.titleAlert, message: Messages.mAccessTokenEmpty)
+            return
+        }
+        
+        showRequestMode(show: true)
+        connectionAPI.post(APISettings.BASE_URL + APISettings.URI_LOGIN, parametersArray: setFacebookBodyParameters(), serverTag: APISettings.tagFB)
+    }
+    
+    
+    
+    //MARK: - NavigationBar Methods
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if(segue.identifier == "goToMap"){
+            //Send the studentLocations info to the next view
+            UserSession.instance.studentLocations = studentLocations
+        }
+    }
+    
+    //MARK: APIConnectionProtocol Methods
+    override func didReceiveAPIResultsSuccess(results results: AnyObject, path: String, serverTag: String) {
+        
+        showRequestMode(show: false)
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            UserSession.instance.info = LoginResponse(data: results as! [String: AnyObject])
+            self.performSegueWithIdentifier("goToMap", sender: self)
+        }
+    }
+    
+    
+    //MARK: Other Methods
+    
     /**
-     * Add Facebook login button in the specific position
-     * @param: Button position
-     */
+    * Add Facebook login button in the specific position
+    * @param: Button position
+    */
     func setFacebookBtn(position: CGFloat = 1){
+        fbButton?.removeFromSuperview()
+        
         fbButton = oauth2Control.addButton(.Facebook, position: position) as! FBSDKLoginButton
         self.view.addSubview(fbButton!)
         fbButton?.sendSubviewToBack(view)
         overlay.bringSubviewToFront(fbButton!)
         activityIndicator.bringSubviewToFront(overlay)
     }
+    
+    
+    func setInterfaceDetails(){
+        let attributes = [
+            NSForegroundColorAttributeName: UIColor.whiteColor(),
+            NSFontAttributeName : UIFont(name: Interface.fontFamily, size: 14)!
+        ]
+        
+        usernameTxtField.attributedPlaceholder = NSAttributedString(string: usernameTxtField.placeholder!, attributes:attributes)
+        
+        passwordTxtField.attributedPlaceholder = NSAttributedString(string: passwordTxtField.placeholder!, attributes:attributes)
+    }
+    
+    
     
     /**
      * @author: Daniela Velasquez
@@ -120,59 +180,6 @@ class LoginViewController: ConnectionViewController {
     func emptyFields() -> Bool{
         return ((usernameTxtField.text?.isEmpty == true) || (passwordTxtField.text?.isEmpty == true))
     }
-    
-    
-    
-    //MARK: IBAction Methods
-    @IBAction func loginRequestAction(sender: AnyObject) {
-        
-        guard !emptyFields() else{
-            showAlert("Sorry!", message: "You need fill the password and email fields.")
-            return
-        }
-        
-        showRequestMode(show: true)
-        connectionAPI.post(APISettings.BASE_URL + APISettings.URI_LOGIN, parametersArray: setBodyParameters(), serverTag: "tagLogin")
-    }
-    
-    @IBAction func goToUdacitySignUp(sender: AnyObject) {
-        UIApplication.sharedApplication().openURL(NSURL(string: APISettings.SIGN_UP_URL)!)
-    }
-    
-    
-    //MARK: Facebook
-    func loginWithFacebook(){
-        
-        guard MSOAuth2.instance.consumerKey != nil else{
-            showAlert("Sorry!", message: "Access Token is empty")
-            return
-        }
-        
-        showRequestMode(show: true)
-        connectionAPI.post(APISettings.BASE_URL + APISettings.URI_LOGIN, parametersArray: setFacebookBodyParameters(), serverTag: "tagLoginFb")
-    }
-    
-    
-    
-    //MARK: - NavigationBar Methods
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if(segue.identifier == "goToMap"){
-            //Send the studentLocations info to the next view
-            UserSession.instance.studentLocations = studentLocations
-        }
-    }
-    
-    //MARK: APIConnectionProtocol Methods
-    override func didReceiveAPIResultsSuccess(results results: AnyObject, path: String, serverTag: String) {
-        
-        showRequestMode(show: false)
-        
-        dispatch_async(dispatch_get_main_queue()) {
-            UserSession.instance.info = LoginResponse(data: results as! [String: AnyObject])
-            self.performSegueWithIdentifier("goToMap", sender: self)
-        }
-    }
 }
 
 
@@ -193,7 +200,7 @@ extension LoginViewController: OAuth2ManagementProtocol{
     }
     
     func oauth2LoginFail(error: NSError?, service: ServiceName) {
-        self.showAlert("Sorry!", message: "Login problems")
+        self.showAlert(Messages.bDismiss, message: Messages.mLoginFail)
     }
     
 }

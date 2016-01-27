@@ -88,7 +88,7 @@ extension MSOAuth2: FBSDKLoginButtonDelegate{
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         
         if !result.isCancelled {
-            self.consumerSecret = result.token.tokenString // Safe to send to the server
+            self.consumerSecret = result.token.tokenString
             self.consumerKey    = result.token.tokenString
             
             NSNotificationCenter.defaultCenter().postNotificationName(
@@ -109,6 +109,7 @@ extension MSOAuth2: FBSDKLoginButtonDelegate{
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         
     }
+    
 }
 
 

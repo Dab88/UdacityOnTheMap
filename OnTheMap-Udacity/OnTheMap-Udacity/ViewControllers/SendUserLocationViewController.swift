@@ -38,31 +38,21 @@ class SendUserLocationViewController: ConnectionViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        mediaUrl.text = "Enter a Link to Share Here"
+        mediaUrl.text = Messages.mEnterLink
     }
     
     
-    func loadUserLocation(){
-        
-        //show students on map
-        
-        let annotation = StudentAnnotation(title: (userLocation?.firstName)!, url: "", coordinate:  CLLocationCoordinate2D(latitude:  userLocation!.latitude, longitude:  userLocation!.longitude))
-        
-        mapView.addAnnotation(annotation)
-        
-    }
-    
+    //MARK: IBAction Methods
     @IBAction func submitUserLocation(sender: AnyObject) {
         guard !mediaUrl.text.isEmpty else{
-            showAlert("", message: "Must Enter a Link")
+            showAlert(message: Messages.mMustEnterLink)
             return
         }
-        
         
         userLocation?.mediaURL = mediaUrl.text
         
         showRequestMode(show: true)
-        connectionAPI.post(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: self.userLocation!.toJSON(), serverTag: "tagAddStudentLoc", parseRequest: true)
+        connectionAPI.post(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: self.userLocation!.toJSON(), serverTag: APISettings.tagAddLoc, parseRequest: true)
         
     }
     
@@ -73,15 +63,26 @@ class SendUserLocationViewController: ConnectionViewController {
     
     //MARK: Other Methods
     
+    func loadUserLocation(){
+        
+        //Show students in the map
+        let annotation = StudentAnnotation(title: (userLocation?.firstName)!, url: "", coordinate:  CLLocationCoordinate2D(latitude:  userLocation!.latitude, longitude:  userLocation!.longitude))
+        
+        mapView.addAnnotation(annotation)
+    }
+    
+    //MARK: APIConnectionProtocol Methods
     override func didReceiveAPIResultsSuccess(results results: AnyObject, path: String, serverTag: String){
+        
         super.didReceiveAPIResultsSuccess(results: results, path: path, serverTag: serverTag)
+        
         dispatch_async(dispatch_get_main_queue()) {
            self.cancelAction(self)
         }
     }
     
     override func didReceiveAPIResultsFailed(error error: NSError, errorObject: AnyObject, path: String, serverTag: String){
-        showAlert("", message: "Update Fail")
+        showAlert(message: Messages.mUpdateFail)
         showRequestMode(show: false)
     }
     
@@ -97,15 +98,16 @@ extension SendUserLocationViewController: UITextViewDelegate{
     func textViewShouldEndEditing(textView: UITextView) -> Bool {
         
         if(mediaUrl.text == ""){
-            textView.text = "Enter a Link to Share Here"
+            textView.text = Messages.mEnterLink
         }
         mediaUrl.resignFirstResponder()
+        
         return true
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
         
-        if(mediaUrl.text == "Enter a Link to Share Here"){
+        if(mediaUrl.text == Messages.mEnterLink){
             textView.text = ""
         }
         
