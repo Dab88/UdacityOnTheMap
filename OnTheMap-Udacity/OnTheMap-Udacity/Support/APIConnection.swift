@@ -202,6 +202,8 @@ class APIConnection: NSObject {
                         
                         print("Body: \(NSString(data: validData!, encoding: NSUTF8StringEncoding))")
                         
+                        let jsonResponse = self.getJSON(validData!, response: (response as! NSHTTPURLResponse))
+                        /*
                         do{
                             if let parseJSON = try NSJSONSerialization.JSONObjectWithData(validData!, options: .MutableLeaves) as? NSDictionary{
                                 result = parseJSON
@@ -209,10 +211,14 @@ class APIConnection: NSObject {
                         }catch{
                             errorObject = NSError(domain: "Malformed JSON", code: (response as! NSHTTPURLResponse).statusCode, userInfo: nil)
                         }
+                        */
+                        
+                        if let parseJSON = jsonResponse as? NSDictionary{
+                            result = parseJSON
+                        }
                         
                         if let result = result{
                             self.delegate?.didReceiveAPIResultsSuccess(results: result, path: path, serverTag: serverTag)
-                            
                             return
                         }
                         

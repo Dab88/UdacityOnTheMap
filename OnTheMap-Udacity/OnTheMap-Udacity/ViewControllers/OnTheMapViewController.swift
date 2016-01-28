@@ -15,6 +15,7 @@ class OnTheMapViewController: ConnectionViewController {
     @IBOutlet weak var mapView: MKMapView!
     
     var locationManager:CLLocationManager!
+    var updating:Bool?
     let regionRadius: CLLocationDistance = 1000
     
     
@@ -31,7 +32,9 @@ class OnTheMapViewController: ConnectionViewController {
         locationManager.startUpdatingLocation()
         
         //Get public user data
-        connectionAPI.get(APISettings.BASE_URL + APISettings.URI_USER + "\(UserSession.instance.info!.account!.key!)", parametersArray: nil, serverTag: APISettings.tagGetUser)
+        if(self.available()){
+            connectionAPI.get(APISettings.BASE_URL + APISettings.URI_USER + "\(UserSession.instance.info!.account!.key!)", parametersArray: nil, serverTag: APISettings.tagGetUser)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -46,12 +49,14 @@ class OnTheMapViewController: ConnectionViewController {
             
             showAlert(message: Messages.mUserWithLocation, successBtnTitle: Messages.bOverwrite, handlerSuccess:{
                 (action) in
+                self.updating = true
                 self.performSegueWithIdentifier("setLocation", sender: self)
                 
                 }, failBtnTitle: Messages.bCancel)
             
         }else{
-            self.performSegueWithIdentifier("setLocation", sender: self)
+            updating = false
+            performSegueWithIdentifier("setLocation", sender: self)
         }
         
     }
@@ -66,11 +71,22 @@ class OnTheMapViewController: ConnectionViewController {
     }
     
     @IBAction func refreshAction(sender: AnyObject) {
-        showRequestMode(show: true)
-        connectionAPI.get(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: nil, serverTag: APISettings.tagGetLoc, parseRequest: true)
+        if(self.available()){
+            showRequestMode(show: true)
+            connectionAPI.get(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: nil, serverTag: APISettings.tagGetLoc, parseRequest: true)
+        }
     }
     
+    
     //MARK: Other Methods
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if(segue.identifier == "setLocation"){
+            (segue.destinationViewController as! FindLocationViewController).updating = updating
+        }
+    }
+    
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
             regionRadius * 2.0, regionRadius * 2.0)

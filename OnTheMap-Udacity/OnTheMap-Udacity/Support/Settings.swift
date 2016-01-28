@@ -18,7 +18,9 @@ struct APISettings{
 
     static let URI_LOGIN = "/session"
     static let URI_USER = "/users/"
-    static let URI_STUDENTLOC = "/StudentLocation?order=-updatedAt"
+    static let URI_UPDATELOC = "/StudentLocation"
+    static let URI_STUDENTLOC = URI_UPDATELOC + "?order=-updatedAt"
+    
  
     
     static let SIGN_UP_URL = "https://www.google.com/url?q=https://www.udacity.com/account/auth%23!/signin&sa=D&usg=AFQjCNHOjlXo3QS15TqT0Bp_TKoR9Dvypw"

@@ -16,6 +16,7 @@ class StudentListViewController: UITableViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var connectionAPI:APIConnection = APIConnection()
+    var updating:Bool?
     
     //MARK: Life Cycle Methods
     override func viewDidLoad() {
@@ -34,12 +35,13 @@ class StudentListViewController: UITableViewController {
         if(UserSession.instance.userWithLocation() == true){
             showAlert(message: Messages.mUserWithLocation, successBtnTitle: Messages.bOverwrite, handlerSuccess:{
                 (action) in
+                    self.updating = true
                     self.performSegueWithIdentifier("setLocation", sender: self)
                 }, failBtnTitle: Messages.bCancel)
         }else{
+            updating = false
             self.performSegueWithIdentifier("setLocation", sender: self)
         }
-        
     }
     
     @IBAction func logoutRequestAction(sender: AnyObject) {
@@ -48,10 +50,20 @@ class StudentListViewController: UITableViewController {
     }
     
     @IBAction func refreshAction(sender: AnyObject) {
-        showRequestMode(show: true)
-        connectionAPI.get(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: nil, serverTag: APISettings.tagGetLoc, parseRequest: true)
+        
+        if(self.available()){
+            showRequestMode(show: true)
+            connectionAPI.get(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: nil, serverTag: APISettings.tagGetLoc, parseRequest: true)
+        }
     }
 
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if(segue.identifier == "setLocation"){
+            (segue.destinationViewController as! FindLocationViewController).updating = self.updating
+        }
+    }
     
     //MARK: TableViewDataSource Methods
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -140,6 +152,21 @@ class StudentListViewController: UITableViewController {
         }
         
         return studentsInfoArray
+    }
+    
+    
+    /*
+    * Return true if the device have internet access
+    */
+    func available() -> Bool{
+        
+        if(ConnectionsValidator.isConnectedToNetwork()){
+            return true
+        }else{
+            showAlert(Messages.titleNetworkProblems, message: Messages.mNoInternetConnection)
+        }
+        
+        return false
     }
 }
 

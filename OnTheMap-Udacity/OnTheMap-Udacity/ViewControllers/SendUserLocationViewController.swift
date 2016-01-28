@@ -15,6 +15,7 @@ class SendUserLocationViewController: ConnectionViewController {
     @IBOutlet weak var mediaUrl: UITextView!
     
     var userLocation:UserLocation?
+    var updating:Bool?
     let regionRadius: CLLocationDistance = 300
     
     
@@ -45,7 +46,7 @@ class SendUserLocationViewController: ConnectionViewController {
     //MARK: IBAction Methods
     @IBAction func submitUserLocation(sender: AnyObject) {
        
-        guard !mediaUrl.text.isEmpty else{
+        guard !mediaUrl.text.isEmpty && (mediaUrl.text != Messages.mEnterLink) else{
             showAlert(message: Messages.mMustEnterLink)
             return
         }
@@ -54,7 +55,13 @@ class SendUserLocationViewController: ConnectionViewController {
         
         if(self.available()){
             showRequestMode(show: true)
-            connectionAPI.post(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: self.userLocation!.toJSON(), serverTag: APISettings.tagAddLoc, parseRequest: true)
+            
+            if(updating == true){
+                 connectionAPI.put(APISettings.PARSE_BASE_URL + APISettings.URI_UPDATELOC + "/" + UserSession.instance.currentObjectKey!, parametersArray: self.userLocation!.toJSON(), serverTag: APISettings.tagAddLoc, parseRequest: true)
+            }
+            else{
+                connectionAPI.post(APISettings.PARSE_BASE_URL + APISettings.URI_UPDATELOC, parametersArray: self.userLocation!.toJSON(), serverTag: APISettings.tagAddLoc, parseRequest: true)
+            }
         }
     }
     

@@ -11,10 +11,10 @@ import MapKit
 
 class FindLocationViewController: ConnectionViewController {
     
-    
     @IBOutlet weak var userAddress: UITextView!
     
     var userLocation:CLLocationCoordinate2D?
+    var updating:Bool?
     
     //MARK: Life Cycle Methods
     
@@ -76,6 +76,9 @@ class FindLocationViewController: ConnectionViewController {
                 mediaURL: "",
                 latitude: userLocation!.latitude,
                 longitude: userLocation!.longitude)
+            
+            
+            (segue.destinationViewController as! SendUserLocationViewController).updating = updating
         }
     }
 }

@@ -53,9 +53,11 @@ class LoginViewController: ConnectionViewController {
             showAlert(Messages.titleAlert, message: Messages.mFieldsEmpty)
             return
         }
-        
-        showRequestMode(show: true)
-        connectionAPI.post(APISettings.BASE_URL + APISettings.URI_LOGIN, parametersArray: setBodyParameters(), serverTag: APISettings.tagAuth)
+        if(self.available()){
+            showRequestMode(show: true)
+            connectionAPI.post(APISettings.BASE_URL + APISettings.URI_LOGIN, parametersArray: setBodyParameters(), serverTag: APISettings.tagAuth)
+        }
+       
     }
     
     @IBAction func goToUdacitySignUp(sender: AnyObject) {

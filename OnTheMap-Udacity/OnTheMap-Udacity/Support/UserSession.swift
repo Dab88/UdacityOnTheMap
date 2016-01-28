@@ -13,6 +13,7 @@ class UserSession: NSObject {
     
     var info:LoginResponse?
     var user:UserBasicInfo?
+    var currentObjectKey:String?
     
     var studentLocations:[StudentInformation]?
 
@@ -48,6 +49,8 @@ class UserSession: NSObject {
         guard user?.count != 0 else{
             return false
         }
+        
+        currentObjectKey = user![0].objectId
         
         return (user![0].latitude != nil)
     }

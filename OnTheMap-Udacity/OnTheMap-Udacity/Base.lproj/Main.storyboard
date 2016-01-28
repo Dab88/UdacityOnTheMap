@@ -325,7 +325,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <segue destination="2F8-D9-a0S" kind="push" identifier="setLocation" id="kjC-Sp-xjK"/>
+                        <segue destination="2F8-D9-a0S" kind="showDetail" identifier="setLocation" id="kjC-Sp-xjK"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fyu-be-Hw8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -367,7 +367,7 @@
                                     <fragment content="Where are you">
                                         <attributes>
                                             <color key="NSColor" red="0.17254901960784313" green="0.29411764705882354" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
-                                            <font key="NSFont" size="24" name="Roboto-Thin"/>
+                                            <font key="NSFont" size="28" name="Roboto-Thin"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -377,28 +377,28 @@ Cg
 </string>
                                         <attributes>
                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <font key="NSFont" size="18" name="Roboto-Thin"/>
+                                            <font key="NSFont" size="28" name="Roboto-Thin"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="studying">
                                         <attributes>
                                             <color key="NSColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
-                                            <font key="NSFont" size="24" name="Roboto-Medium"/>
+                                            <font key="NSFont" size="28" name="Roboto-Thin"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content=" ">
                                         <attributes>
                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <font key="NSFont" size="18" name="Roboto-Thin"/>
+                                            <font key="NSFont" size="28" name="Roboto-Thin"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="today?">
                                         <attributes>
                                             <color key="NSColor" red="0.17254901960784313" green="0.29411764705882354" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
-                                            <font key="NSFont" size="24" name="Roboto-Thin"/>
+                                            <font key="NSFont" size="28" name="Roboto-Thin"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -940,7 +940,7 @@ Cg
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                         <connections>
                                             <outlet property="delegate" destination="yzN-iX-lY7" id="OcH-jG-uWZ"/>
                                         </connections>
@@ -1142,6 +1142,6 @@ Cg
         <image name="udacity" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qNu-z2-917"/>
+        <segue reference="kjC-Sp-xjK"/>
     </inferredMetricsTieBreakers>
 </document>
