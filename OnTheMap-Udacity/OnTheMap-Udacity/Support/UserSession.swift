@@ -14,7 +14,7 @@ class UserSession: NSObject {
     var info:LoginResponse?
     var user:UserBasicInfo?
     
-    var studentLocations:[StudentLocationObject]?
+    var studentLocations:[StudentInformation]?
 
     
     class var instance: UserSession {

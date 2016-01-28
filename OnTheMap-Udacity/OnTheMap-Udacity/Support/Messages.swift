@@ -12,6 +12,9 @@ struct Messages {
     
     static let titleMyProfile =  ""
     static let titleAlert = "Sorry!"
+    static let titleNetworkProblems = "Network Problems"
+    
+    
     
     static let mAccessTokenEmpty = "Access Token is empty"
     static let mFieldsEmpty =  "You need fill the password and email fields."
@@ -24,6 +27,8 @@ struct Messages {
     static let mEnterLink = "Enter a Link to Share Here"
     static let mMustEnterLink = "Must Enter a Link"
     static let mUpdateFail = "Update Fail"
+    static let mNoInternetConnection =  "No internet access"
+    
     
     static let bOk = "OK"
     static let bDismiss = "Dismiss"

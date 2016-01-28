@@ -14,9 +14,7 @@ class OnTheMapViewController: ConnectionViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
-    var studentLocations:[StudentLocationObject]?
     var locationManager:CLLocationManager!
-    
     let regionRadius: CLLocationDistance = 1000
     
     
@@ -83,14 +81,30 @@ class OnTheMapViewController: ConnectionViewController {
         
         for sLocation in UserSession.instance.studentLocations!{
             
+            var fullname:String = sLocation.firstName != nil ? sLocation.firstName! + " " : ""
+            fullname = sLocation.lastName != nil ? fullname + sLocation.lastName! : ""
+            
             //Show students on map
-            let annotation = StudentAnnotation(title: sLocation.fullname(), url: sLocation.mediaURL!, coordinate:  CLLocationCoordinate2D(latitude: sLocation.latitude!, longitude: sLocation.longitude!))
+            let annotation = StudentAnnotation(title: fullname, url: sLocation.mediaURL!, coordinate:  CLLocationCoordinate2D(latitude: sLocation.latitude!, longitude: sLocation.longitude!))
             
             mapView.addAnnotation(annotation)
         }
         
     }
     
+    func studentInfoArray(result: [StudentLocationObject]) -> [StudentInformation]{
+        
+        var studentsInfoArray = [StudentInformation]()
+        
+        for student in result{
+            
+            let studenInfo = StudentInformation(objectId: student.objectId, uniqueKey: student.uniqueKey, firstName: student.firstName, lastName: student.lastName, mapString: student.mapString, mediaURL: student.mediaURL, latitude: student.latitude, longitude: student.longitude,createdAt: student.createdAt, updatedAt: student.updatedAt)
+            
+            studentsInfoArray.append(studenInfo)
+        }
+        
+        return studentsInfoArray
+    }
     
     //MARK: APIConnectionProtocol Methods
     override func  didReceiveAPIResultsSuccess(results results: AnyObject, path: String, serverTag: String){
@@ -102,7 +116,9 @@ class OnTheMapViewController: ConnectionViewController {
                 //Parse response
                 let response = StudentLocationResponse(data: results as! [String: AnyObject])
                 //Refresh studentLocations
-                UserSession.instance.studentLocations = response.results
+                if let result = response.results {
+                    UserSession.instance.studentLocations = self.studentInfoArray(result)
+                }
                 //Load students points
                 self.loadLocations()
                 //Refresh tableview

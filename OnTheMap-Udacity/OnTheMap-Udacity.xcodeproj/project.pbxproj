@@ -10,6 +10,8 @@
 		930E59D91C4016BD0027FBD7 /* ConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930E59D81C4016BD0027FBD7 /* ConnectionViewController.swift */; };
 		930E59DB1C4019790027FBD7 /* OAuth2Management.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930E59DA1C4019790027FBD7 /* OAuth2Management.swift */; };
 		9320F9741C5965AA006C956A /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320F9731C5965AA006C956A /* Messages.swift */; };
+		9320F9761C5A7457006C956A /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320F9751C5A7457006C956A /* StudentInformation.swift */; };
+		9320F9781C5A8571006C956A /* ConnectionsValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320F9771C5A8571006C956A /* ConnectionsValidator.swift */; };
 		93EC2F661C1F5362004218B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC2F651C1F5362004218B8 /* AppDelegate.swift */; };
 		93EC2F681C1F5362004218B8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC2F671C1F5362004218B8 /* LoginViewController.swift */; };
 		93EC2F6B1C1F5362004218B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93EC2F691C1F5362004218B8 /* Main.storyboard */; };
@@ -70,6 +72,8 @@
 		930E59D81C4016BD0027FBD7 /* ConnectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionViewController.swift; path = ViewControllers/ConnectionViewController.swift; sourceTree = "<group>"; };
 		930E59DA1C4019790027FBD7 /* OAuth2Management.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAuth2Management.swift; path = Support/OAuth2Management.swift; sourceTree = "<group>"; };
 		9320F9731C5965AA006C956A /* Messages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Messages.swift; path = Support/Messages.swift; sourceTree = "<group>"; };
+		9320F9751C5A7457006C956A /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudentInformation.swift; path = Models/StudentInformation.swift; sourceTree = "<group>"; };
+		9320F9771C5A8571006C956A /* ConnectionsValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionsValidator.swift; path = Support/ConnectionsValidator.swift; sourceTree = "<group>"; };
 		93EC2F621C1F5362004218B8 /* OnTheMap-Udacity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OnTheMap-Udacity.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93EC2F651C1F5362004218B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93EC2F671C1F5362004218B8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -233,6 +237,7 @@
 				93F672811C4065EB00BC01DE /* Response Objects */,
 				93F6729C1C444C0700BC01DE /* StudentAnnotation.swift */,
 				93F672AE1C45733B00BC01DE /* UserLocation.swift */,
+				9320F9751C5A7457006C956A /* StudentInformation.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -263,6 +268,7 @@
 				93F672831C41BAAB00BC01DE /* Fonts */,
 				93EC2F6C1C1F5362004218B8 /* Assets.xcassets */,
 				93EC2F711C1F5362004218B8 /* Info.plist */,
+				9320F9771C5A8571006C956A /* ConnectionsValidator.swift */,
 			);
 			name = Support;
 			path = "OnTheMap-Udacity";
@@ -516,12 +522,14 @@
 				93F672B11C457EFE00BC01DE /* UserResponse.swift in Sources */,
 				93F672A11C4469B300BC01DE /* MSTextField.swift in Sources */,
 				93F672A31C45326200BC01DE /* StudentListViewController.swift in Sources */,
+				9320F9761C5A7457006C956A /* StudentInformation.swift in Sources */,
 				93F672971C443F6900BC01DE /* StudentLocationResponse.swift in Sources */,
 				93F672A81C4549AE00BC01DE /* StringExtension.swift in Sources */,
 				93F672AD1C45724300BC01DE /* SendUserLocationViewController.swift in Sources */,
 				93F6729D1C444C0700BC01DE /* StudentAnnotation.swift in Sources */,
 				9320F9741C5965AA006C956A /* Messages.swift in Sources */,
 				930E59DB1C4019790027FBD7 /* OAuth2Management.swift in Sources */,
+				9320F9781C5A8571006C956A /* ConnectionsValidator.swift in Sources */,
 				93F6727A1C40648400BC01DE /* LoginResponse.swift in Sources */,
 				93F6729F1C4463EC00BC01DE /* BaseViewController.swift in Sources */,
 				93F6727C1C4064D100BC01DE /* MSAccount.swift in Sources */,

@@ -17,7 +17,6 @@ class StudentListViewController: UITableViewController {
     
     var connectionAPI:APIConnection = APIConnection()
     
-    
     //MARK: Life Cycle Methods
     override func viewDidLoad() {
         
@@ -128,6 +127,20 @@ class StudentListViewController: UITableViewController {
             }
         }
     }
+    
+    func studentInfoArray(result: [StudentLocationObject]) -> [StudentInformation]{
+    
+        var studentsInfoArray = [StudentInformation]()
+        
+        for student in result{
+            
+            let studenInfo = StudentInformation(objectId: student.objectId, uniqueKey: student.uniqueKey, firstName: student.firstName, lastName: student.lastName, mapString: student.mapString, mediaURL: student.mediaURL, latitude: student.latitude, longitude: student.longitude,createdAt: student.createdAt, updatedAt: student.updatedAt)
+            
+            studentsInfoArray.append(studenInfo)
+        }
+        
+        return studentsInfoArray
+    }
 }
 
 
@@ -142,7 +155,11 @@ extension StudentListViewController : APIConnectionProtocol{
             //Parse response
             let response = StudentLocationResponse(data: results as! [String: AnyObject])
             //Refresh studentLocations
-            UserSession.instance.studentLocations = response.results
+            
+            if let result = response.results {
+                UserSession.instance.studentLocations = studentInfoArray(result)
+            }
+            
             //Refresh tableview
             tableView.reloadData()
         }

@@ -17,7 +17,6 @@ class LoginViewController: ConnectionViewController {
     
     var oauth2Control = MSOAuth2()
     var fbButton:UIButton?
-    var studentLocations:[StudentLocationObject]?
     
     
     //MARK: Life Cycle Methods
@@ -81,23 +80,28 @@ class LoginViewController: ConnectionViewController {
     //MARK: - NavigationBar Methods
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if(segue.identifier == "goToMap"){
-            //Send the studentLocations info to the next view
-            UserSession.instance.studentLocations = studentLocations
-        }
     }
     
     //MARK: APIConnectionProtocol Methods
     override func didReceiveAPIResultsSuccess(results results: AnyObject, path: String, serverTag: String) {
         
-        showRequestMode(show: false)
-        
         dispatch_async(dispatch_get_main_queue()) {
+            self.showRequestMode(show: false)
             UserSession.instance.info = LoginResponse(data: results as! [String: AnyObject])
             self.performSegueWithIdentifier("goToMap", sender: self)
         }
     }
     
+    override func didReceiveAPIResultsFailed(error error: NSError, errorObject: AnyObject, path: String, serverTag: String) {
+        
+        super.didReceiveAPIResultsFailed(error: error, errorObject: errorObject, path: path, serverTag: serverTag)
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.showRequestMode(show: false)
+            self.showAlert(errorObject.domain)
+            
+        }
+    }
     
     //MARK: Other Methods
     
@@ -191,12 +195,9 @@ extension LoginViewController: OAuth2ManagementProtocol{
         
         MSOAuth2.instance.serviceName = serviceName
         
-        //if(self.available()){
-        
-        loginWithFacebook()
-        
-        
-        // }
+        if(self.available()){
+            loginWithFacebook()
+        }
     }
     
     func oauth2LoginFail(error: NSError?, service: ServiceName) {

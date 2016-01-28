@@ -44,6 +44,7 @@ class SendUserLocationViewController: ConnectionViewController {
     
     //MARK: IBAction Methods
     @IBAction func submitUserLocation(sender: AnyObject) {
+       
         guard !mediaUrl.text.isEmpty else{
             showAlert(message: Messages.mMustEnterLink)
             return
@@ -51,9 +52,10 @@ class SendUserLocationViewController: ConnectionViewController {
         
         userLocation?.mediaURL = mediaUrl.text
         
-        showRequestMode(show: true)
-        connectionAPI.post(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: self.userLocation!.toJSON(), serverTag: APISettings.tagAddLoc, parseRequest: true)
-        
+        if(self.available()){
+            showRequestMode(show: true)
+            connectionAPI.post(APISettings.PARSE_BASE_URL + APISettings.URI_STUDENTLOC, parametersArray: self.userLocation!.toJSON(), serverTag: APISettings.tagAddLoc, parseRequest: true)
+        }
     }
     
     @IBAction func cancelAction(sender: AnyObject) {

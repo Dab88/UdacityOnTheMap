@@ -48,4 +48,19 @@ class BaseViewController: UIViewController {
         
         self.presentViewController(alert, animated: true, completion: nil)
     }
+    
+    
+    /*
+    * Return true if the device have internet access
+    */
+    func available() -> Bool{
+        
+        if(ConnectionsValidator.isConnectedToNetwork()){
+            return true
+        }else{
+            showAlert(Messages.titleNetworkProblems, message: Messages.mNoInternetConnection)
+        }
+        
+        return false
+    }
 }

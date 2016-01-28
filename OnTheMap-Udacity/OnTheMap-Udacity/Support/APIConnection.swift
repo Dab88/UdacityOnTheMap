@@ -109,7 +109,7 @@ class APIConnection: NSObject {
     
     func request(method: Method, path: String, parametersArray: [String : AnyObject]?, serverTag: String, parseRequest:Bool = false) {
         
-            print("\n\(serverTag) - \(method.rawValue)\nURL:  \(path)\n")
+        print("\n\(serverTag) - \(method.rawValue)\nURL:  \(path)\n")
         if let param = parametersArray{
             print("PARAMETER REQUEST: \n \(param.description)\n")
         }
@@ -169,8 +169,26 @@ class APIConnection: NSObject {
                 print("Response code: \((response as! NSHTTPURLResponse).statusCode)")
                 
                 if(self.errorResponse((response as! NSHTTPURLResponse).statusCode)){
-                    errorObject = NSError(domain: "Request Error", code: (response as! NSHTTPURLResponse).statusCode, userInfo: nil)
-                    //print("Body: \(NSString(data: data!, encoding: NSUTF8StringEncoding))")
+                    var errorMessage = "Request Error"
+                    
+                    if(data != nil){
+                        var validData = data
+                        
+                        if(!parseRequest){
+                            validData = validData!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+                        }
+                        
+                        let jsonResponse = self.getJSON(validData!, response: (response as! NSHTTPURLResponse))
+                        
+                        if let json = jsonResponse as? NSDictionary{
+                            if(json["error"] != nil){
+                                errorMessage = json["error"] as! String
+                            }
+                        }
+                    }
+                    
+                    errorObject = NSError(domain: errorMessage, code: (response as! NSHTTPURLResponse).statusCode, userInfo: nil)
+                    
                 }else{
                     
                     if(data != nil){
@@ -213,6 +231,19 @@ class APIConnection: NSObject {
         task.resume()
     }
     
+    
+    func getJSON(validData: NSData, response: NSHTTPURLResponse) -> AnyObject?{
+        
+        do{
+            if let parseJSON = try NSJSONSerialization.JSONObjectWithData(validData, options: .MutableLeaves) as? NSDictionary{
+                return parseJSON
+            }
+        }catch{
+            return NSError(domain: "Malformed JSON", code: response.statusCode, userInfo: nil)
+        }
+        
+        return  NSError(domain: "Malformed JSON", code: response.statusCode, userInfo: nil)
+    }
     
     func errorResponse(statusCode: Int) -> Bool {
         if statusCode < 200 || statusCode >= 300 {

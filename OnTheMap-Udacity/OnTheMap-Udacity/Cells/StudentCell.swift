@@ -15,10 +15,12 @@ class StudentCell: UITableViewCell {
     
     class var identifier: String { return String.className(self) }
     
-    func setup(student: StudentLocationObject){
+    func setup(student: StudentInformation){
         
-        //Set cell.studentFullname with student.fullname()
-        studentFullname.text = student.fullname()
+        //Set cell.studentFullname
+        var fullname:String = student.firstName != nil ? student.firstName! + " " : ""
+        fullname = student.lastName != nil ? fullname + student.lastName! : ""
+        studentFullname.text = fullname
         
         //Set name
         studentLink.text = student.mediaURL
