@@ -13,6 +13,7 @@ class FindLocationViewController: ConnectionViewController {
     
     
     @IBOutlet weak var userAddress: UITextView!
+    
     var userLocation:CLLocationCoordinate2D?
     
     //MARK: Life Cycle Methods
@@ -40,8 +41,12 @@ class FindLocationViewController: ConnectionViewController {
     
     //MARK: Other Methods
     func findLocation(){
+        
+        showRequestMode(show: true)
         let geocoder:CLGeocoder = CLGeocoder()
         geocoder.geocodeAddressString(userAddress.text, completionHandler:  { (placemarks, error) -> Void in
+            
+            self.showRequestMode(show: false)
             
             guard error == nil else{
                 self.showAlert(Messages.titleAlert, message: Messages.mGeocodeFail)

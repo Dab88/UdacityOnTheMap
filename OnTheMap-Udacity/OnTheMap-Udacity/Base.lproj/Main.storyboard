@@ -490,6 +490,14 @@ Cg
                                     <action selector="adduserLocationsAction:" destination="2F8-D9-a0S" eventType="touchUpInside" id="mhI-LG-cjd"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" alpha="0.64999997615814209" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CMH-vd-fSl">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="HLq-9x-qxh">
+                                <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                <color key="color" red="0.99607843139999996" green="0.35294117650000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -497,12 +505,18 @@ Cg
                             <constraint firstAttribute="trailing" secondItem="nLE-Ia-4uc" secondAttribute="trailing" id="7Nu-XB-vD1"/>
                             <constraint firstItem="OEv-d5-oEN" firstAttribute="centerX" secondItem="rme-bc-BZ6" secondAttribute="centerX" id="7hu-yj-zRC"/>
                             <constraint firstItem="Fwj-nW-SY5" firstAttribute="top" secondItem="GpF-OL-heD" secondAttribute="bottom" id="EM5-qy-K5X"/>
+                            <constraint firstItem="HLq-9x-qxh" firstAttribute="centerX" secondItem="rme-bc-BZ6" secondAttribute="centerX" id="FhA-br-VkY"/>
+                            <constraint firstItem="CMH-vd-fSl" firstAttribute="width" secondItem="rme-bc-BZ6" secondAttribute="width" id="JHr-wW-q6R"/>
                             <constraint firstItem="nLE-Ia-4uc" firstAttribute="top" secondItem="Fwj-nW-SY5" secondAttribute="bottom" constant="-2" id="KY1-FT-UTc"/>
+                            <constraint firstItem="CMH-vd-fSl" firstAttribute="centerX" secondItem="rme-bc-BZ6" secondAttribute="centerX" id="N1b-Sd-TKc"/>
                             <constraint firstAttribute="trailing" secondItem="Fwj-nW-SY5" secondAttribute="trailing" id="Pbj-zR-kvO"/>
                             <constraint firstItem="GpF-OL-heD" firstAttribute="top" secondItem="V2b-Go-jhW" secondAttribute="bottom" constant="8" id="Sou-4d-pl9"/>
                             <constraint firstAttribute="trailing" secondItem="GpF-OL-heD" secondAttribute="trailing" id="Uc8-48-6b8"/>
                             <constraint firstItem="Fwj-nW-SY5" firstAttribute="leading" secondItem="rme-bc-BZ6" secondAttribute="leading" id="XFC-hz-efG"/>
                             <constraint firstItem="qrC-Et-XvG" firstAttribute="top" secondItem="OEv-d5-oEN" secondAttribute="bottom" constant="38" id="Yq4-n8-uSC"/>
+                            <constraint firstItem="HLq-9x-qxh" firstAttribute="centerY" secondItem="rme-bc-BZ6" secondAttribute="centerY" id="gF4-DN-jAe"/>
+                            <constraint firstItem="CMH-vd-fSl" firstAttribute="centerY" secondItem="rme-bc-BZ6" secondAttribute="centerY" id="kWf-9t-FSe"/>
+                            <constraint firstItem="CMH-vd-fSl" firstAttribute="height" secondItem="rme-bc-BZ6" secondAttribute="height" id="kdT-PR-A5T"/>
                             <constraint firstItem="GpF-OL-heD" firstAttribute="leading" secondItem="rme-bc-BZ6" secondAttribute="leading" id="scf-yB-vRQ"/>
                         </constraints>
                         <variation key="default">
@@ -511,19 +525,27 @@ Cg
                                 <exclude reference="Fwj-nW-SY5"/>
                                 <exclude reference="nLE-Ia-4uc"/>
                                 <exclude reference="OEv-d5-oEN"/>
+                                <exclude reference="CMH-vd-fSl"/>
+                                <exclude reference="HLq-9x-qxh"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="Yq4-n8-uSC"/>
-                                <exclude reference="7hu-yj-zRC"/>
-                                <exclude reference="EM5-qy-K5X"/>
-                                <exclude reference="Pbj-zR-kvO"/>
-                                <exclude reference="XFC-hz-efG"/>
+                                <exclude reference="JHr-wW-q6R"/>
+                                <exclude reference="N1b-Sd-TKc"/>
+                                <exclude reference="kWf-9t-FSe"/>
+                                <exclude reference="kdT-PR-A5T"/>
                                 <exclude reference="Sou-4d-pl9"/>
                                 <exclude reference="Uc8-48-6b8"/>
                                 <exclude reference="scf-yB-vRQ"/>
+                                <exclude reference="EM5-qy-K5X"/>
+                                <exclude reference="Pbj-zR-kvO"/>
+                                <exclude reference="XFC-hz-efG"/>
                                 <exclude reference="26V-iG-NTM"/>
                                 <exclude reference="7Nu-XB-vD1"/>
                                 <exclude reference="KY1-FT-UTc"/>
+                                <exclude reference="FhA-br-VkY"/>
+                                <exclude reference="gF4-DN-jAe"/>
+                                <exclude reference="7hu-yj-zRC"/>
+                                <exclude reference="Yq4-n8-uSC"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -532,19 +554,27 @@ Cg
                                 <include reference="Fwj-nW-SY5"/>
                                 <include reference="nLE-Ia-4uc"/>
                                 <include reference="OEv-d5-oEN"/>
+                                <include reference="CMH-vd-fSl"/>
+                                <include reference="HLq-9x-qxh"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="Yq4-n8-uSC"/>
-                                <include reference="7hu-yj-zRC"/>
-                                <include reference="EM5-qy-K5X"/>
-                                <include reference="Pbj-zR-kvO"/>
-                                <include reference="XFC-hz-efG"/>
+                                <include reference="JHr-wW-q6R"/>
+                                <include reference="N1b-Sd-TKc"/>
+                                <include reference="kWf-9t-FSe"/>
+                                <include reference="kdT-PR-A5T"/>
                                 <include reference="Sou-4d-pl9"/>
                                 <include reference="Uc8-48-6b8"/>
                                 <include reference="scf-yB-vRQ"/>
+                                <include reference="EM5-qy-K5X"/>
+                                <include reference="Pbj-zR-kvO"/>
+                                <include reference="XFC-hz-efG"/>
                                 <include reference="26V-iG-NTM"/>
                                 <include reference="7Nu-XB-vD1"/>
                                 <include reference="KY1-FT-UTc"/>
+                                <include reference="FhA-br-VkY"/>
+                                <include reference="gF4-DN-jAe"/>
+                                <include reference="7hu-yj-zRC"/>
+                                <include reference="Yq4-n8-uSC"/>
                             </mask>
                         </variation>
                     </view>
@@ -554,6 +584,8 @@ Cg
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="400" height="600"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="HLq-9x-qxh" id="XhE-vL-YPu"/>
+                        <outlet property="overlay" destination="CMH-vd-fSl" id="7Ti-v3-jBj"/>
                         <outlet property="userAddress" destination="3fi-Qd-K26" id="iqu-fp-YOK"/>
                         <segue destination="yzN-iX-lY7" kind="show" identifier="goToSendLocation" action="showDetailViewController:sender:" id="X1Z-bb-70l"/>
                     </connections>
