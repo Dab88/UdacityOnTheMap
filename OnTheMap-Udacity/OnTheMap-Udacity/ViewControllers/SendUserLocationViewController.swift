@@ -82,8 +82,10 @@ class SendUserLocationViewController: ConnectionViewController {
     }
     
     override func didReceiveAPIResultsFailed(error error: NSError, errorObject: AnyObject, path: String, serverTag: String){
-        showAlert(message: Messages.mUpdateFail)
-        showRequestMode(show: false)
+        dispatch_async(dispatch_get_main_queue()) {
+            self.showAlert(message: Messages.mUpdateFail)
+            self.showRequestMode(show: false)
+        }
     }
     
 }
