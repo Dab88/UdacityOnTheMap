@@ -32,7 +32,6 @@
 		93F672901C4409B800BC01DE /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93F672851C41BAB900BC01DE /* Roboto-Regular.ttf */; };
 		93F672911C4409B800BC01DE /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93F672861C41BAB900BC01DE /* Roboto-Thin.ttf */; };
 		93F672931C440DEF00BC01DE /* OnTheMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F672921C440DEF00BC01DE /* OnTheMapViewController.swift */; };
-		93F672971C443F6900BC01DE /* StudentLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F672961C443F6900BC01DE /* StudentLocationResponse.swift */; };
 		93F672991C443FD700BC01DE /* StudentLocationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F672981C443FD700BC01DE /* StudentLocationObject.swift */; };
 		93F6729B1C44470B00BC01DE /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F6729A1C44470B00BC01DE /* UserSession.swift */; };
 		93F6729D1C444C0700BC01DE /* StudentAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F6729C1C444C0700BC01DE /* StudentAnnotation.swift */; };
@@ -100,7 +99,6 @@
 		93F6728A1C43EC6800BC01DE /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		93F6728D1C43EC7400BC01DE /* FacebookSDKStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKStrings.bundle; sourceTree = "<group>"; };
 		93F672921C440DEF00BC01DE /* OnTheMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OnTheMapViewController.swift; path = ViewControllers/OnTheMapViewController.swift; sourceTree = "<group>"; };
-		93F672961C443F6900BC01DE /* StudentLocationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudentLocationResponse.swift; path = ResponseObjects/StudentLocationResponse.swift; sourceTree = "<group>"; };
 		93F672981C443FD700BC01DE /* StudentLocationObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudentLocationObject.swift; path = Models/StudentLocationObject.swift; sourceTree = "<group>"; };
 		93F6729A1C44470B00BC01DE /* UserSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserSession.swift; path = Support/UserSession.swift; sourceTree = "<group>"; };
 		93F6729C1C444C0700BC01DE /* StudentAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StudentAnnotation.swift; path = Models/StudentAnnotation.swift; sourceTree = "<group>"; };
@@ -250,7 +248,6 @@
 				93F672B21C459E5900BC01DE /* UserBasicInfo.swift */,
 				93F6727B1C4064D100BC01DE /* MSAccount.swift */,
 				93F6727D1C40650B00BC01DE /* MSSession.swift */,
-				93F672961C443F6900BC01DE /* StudentLocationResponse.swift */,
 				93F672981C443FD700BC01DE /* StudentLocationObject.swift */,
 			);
 			name = "Response Objects";
@@ -523,7 +520,6 @@
 				93F672A11C4469B300BC01DE /* MSTextField.swift in Sources */,
 				93F672A31C45326200BC01DE /* StudentListViewController.swift in Sources */,
 				9320F9761C5A7457006C956A /* StudentInformation.swift in Sources */,
-				93F672971C443F6900BC01DE /* StudentLocationResponse.swift in Sources */,
 				93F672A81C4549AE00BC01DE /* StringExtension.swift in Sources */,
 				93F672AD1C45724300BC01DE /* SendUserLocationViewController.swift in Sources */,
 				93F6729D1C444C0700BC01DE /* StudentAnnotation.swift in Sources */,

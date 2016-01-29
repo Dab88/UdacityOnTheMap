@@ -24,5 +24,58 @@ struct StudentInformation{
     
     var createdAt: NSDate? // the date when the student location was created
     var updatedAt: NSDate? // the date when the student location was last updated
+    
+    
+    init(data: NSDictionary){
+    
+        
+      
+        
+        if let oId = data["objectId"] as? String{
+            self.objectId = oId
+        }
+       
+        if let uniqueKey = data["uniqueKey"] as? String{
+            self.uniqueKey = uniqueKey
+        }
+      
+        
+        if let firstName = data["firstName"] as? String{
+            self.firstName = firstName
+        }
+        
+        if let lastName = data["lastName"] as? String{
+            self.lastName = lastName
+        }
+        
+        
+        if let mapString = data["mapString"] as? String{
+            self.mapString = mapString
+        }
+        
+        if let mediaURL = data["mediaURL"] as? String{
+            self.mediaURL = mediaURL
+        }
+       
+        if let latitude = data["latitude"] as? Double{
+            self.latitude = latitude
+        }
+        
+        if let longitude = data["longitude"] as? Double{
+            self.longitude = longitude
+        }
+        
+        if let createdAt = data["createdAt"] as? NSDate{
+            self.createdAt = createdAt
+        }
+        
+        if let updatedAt = data["updatedAt"] as? NSDate{
+            self.updatedAt = updatedAt
+        }
+        
+     
+    }
+    
+    
 }
     

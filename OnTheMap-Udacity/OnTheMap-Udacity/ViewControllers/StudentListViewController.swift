@@ -46,7 +46,10 @@ class StudentListViewController: UITableViewController {
     
     @IBAction func logoutRequestAction(sender: AnyObject) {
         connectionAPI.delete(APISettings.BASE_URL + APISettings.URI_LOGIN, serverTag: APISettings.tagLogout)
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        
+        MSOAuth2.instance.logout()
+        
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func refreshAction(sender: AnyObject) {
@@ -140,20 +143,6 @@ class StudentListViewController: UITableViewController {
         }
     }
     
-    func studentInfoArray(result: [StudentLocationObject]) -> [StudentInformation]{
-    
-        var studentsInfoArray = [StudentInformation]()
-        
-        for student in result{
-            
-            let studenInfo = StudentInformation(objectId: student.objectId, uniqueKey: student.uniqueKey, firstName: student.firstName, lastName: student.lastName, mapString: student.mapString, mediaURL: student.mediaURL, latitude: student.latitude, longitude: student.longitude,createdAt: student.createdAt, updatedAt: student.updatedAt)
-            
-            studentsInfoArray.append(studenInfo)
-        }
-        
-        return studentsInfoArray
-    }
-    
     
     /*
     * Return true if the device have internet access
@@ -179,13 +168,8 @@ extension StudentListViewController : APIConnectionProtocol{
         showRequestMode(show: false)
         
         if(serverTag == APISettings.tagGetLoc){
-            //Parse response
-            let response = StudentLocationResponse(data: results as! [String: AnyObject])
-            //Refresh studentLocations
-            
-            if let result = response.results {
-                UserSession.instance.studentLocations = studentInfoArray(result)
-            }
+           
+            UserSession.instance.fullStudentLocations(results)
             
             //Refresh tableview
             tableView.reloadData()

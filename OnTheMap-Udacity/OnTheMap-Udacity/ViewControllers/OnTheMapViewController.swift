@@ -67,8 +67,9 @@ class OnTheMapViewController: ConnectionViewController {
         
         MSOAuth2.instance.logout()
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
+    
     
     @IBAction func refreshAction(sender: AnyObject) {
         if(self.available()){
@@ -108,20 +109,6 @@ class OnTheMapViewController: ConnectionViewController {
         
     }
     
-    func studentInfoArray(result: [StudentLocationObject]) -> [StudentInformation]{
-        
-        var studentsInfoArray = [StudentInformation]()
-        
-        for student in result{
-            
-            let studenInfo = StudentInformation(objectId: student.objectId, uniqueKey: student.uniqueKey, firstName: student.firstName, lastName: student.lastName, mapString: student.mapString, mediaURL: student.mediaURL, latitude: student.latitude, longitude: student.longitude,createdAt: student.createdAt, updatedAt: student.updatedAt)
-            
-            studentsInfoArray.append(studenInfo)
-        }
-        
-        return studentsInfoArray
-    }
-    
     //MARK: APIConnectionProtocol Methods
     override func  didReceiveAPIResultsSuccess(results results: AnyObject, path: String, serverTag: String){
         
@@ -129,12 +116,9 @@ class OnTheMapViewController: ConnectionViewController {
             
             dispatch_async(dispatch_get_main_queue()) {
                 self.showRequestMode(show: false)
-                //Parse response
-                let response = StudentLocationResponse(data: results as! [String: AnyObject])
-                //Refresh studentLocations
-                if let result = response.results {
-                    UserSession.instance.studentLocations = self.studentInfoArray(result)
-                }
+                
+                UserSession.instance.fullStudentLocations(results)
+                
                 //Load students points
                 self.loadLocations()
                 //Refresh tableview

@@ -55,4 +55,21 @@ class UserSession: NSObject {
         return (user![0].latitude != nil)
     }
     
+    func fullStudentLocations(results: AnyObject){
+    
+        var jsonResult = results as! Dictionary<String, AnyObject>
+        
+        let resultsArray = jsonResult["results"] as! [AnyObject]
+        
+        var studentInformationArray = [StudentInformation]()
+        for object in resultsArray{
+            
+            let sinfo = StudentInformation(data: object as! NSDictionary)
+            
+            studentInformationArray.append(sinfo)
+        }
+        
+        self.studentLocations = studentInformationArray
+    }
+    
 }
