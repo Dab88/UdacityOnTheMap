@@ -28,9 +28,6 @@ struct StudentInformation{
     
     init(data: NSDictionary){
     
-        
-      
-        
         if let oId = data["objectId"] as? String{
             self.objectId = oId
         }
