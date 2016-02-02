@@ -138,7 +138,14 @@ class OnTheMapViewController: ConnectionViewController {
         self.showRequestMode(show: false)
         
         if(error.code == 401){
-            showAlert(Messages.titleAlert, message: Messages.mUnauthorizedUser)
+            
+            showAlert(Messages.titleAlert, message: Messages.mUnauthorizedUser,handlerSuccess:{
+                (action) in
+                self.logoutRequestAction(self)
+                }
+            )
+           
+            
         }else if let message =  errorObject as? String {
             showAlert(Messages.titleAlert, message: message)
         }
