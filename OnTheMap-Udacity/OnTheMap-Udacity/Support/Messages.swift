@@ -28,7 +28,7 @@ struct Messages {
     static let mMustEnterLink = "Must Enter a Link"
     static let mUpdateFail = "Update Fail"
     static let mNoInternetConnection =  "No internet access"
-    
+    static let mUnauthorizedUser =  "User unauthorized"
     
     static let bOk = "OK"
     static let bDismiss = "Dismiss"

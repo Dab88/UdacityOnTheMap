@@ -134,7 +134,14 @@ class OnTheMapViewController: ConnectionViewController {
     }
     
     override func didReceiveAPIResultsFailed(error error: NSError, errorObject: AnyObject, path: String, serverTag: String){
-        print(errorObject)
+       
+        self.showRequestMode(show: false)
+        
+        if(error.code == 401){
+            showAlert(Messages.titleAlert, message: Messages.mUnauthorizedUser)
+        }else if let message =  errorObject as? String {
+            showAlert(Messages.titleAlert, message: message)
+        }
     }
 }
 

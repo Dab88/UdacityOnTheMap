@@ -179,9 +179,11 @@ extension StudentListViewController : APIConnectionProtocol{
         
         showRequestMode(show: false)
         
-        if let message =  errorObject as? String {
+         if(error.code == 401){
+            showAlert(Messages.titleAlert, message: Messages.mUnauthorizedUser)
+         }else if let message =  errorObject as? String {
             showAlert(Messages.titleAlert, message: message)
-        }
+         }
         
     }
 }
